@@ -1,0 +1,17 @@
+.homepage {
+  display: flex;
+  background-color: #f0f2f5;
+  width: 100%;
+
+  .homepage__sidebar {
+    flex: 1;
+  }
+
+  .homepage__feed {
+    flex: 3;
+  }
+
+  .homepage_friendsSidebar {
+    flex: 1;
+  }
+}
