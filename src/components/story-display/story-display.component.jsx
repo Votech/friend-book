@@ -24,7 +24,7 @@ const StoryDisplay = () => {
 Erick Reyes'
       />
       <StoryItem
-        backgroundImage='https://images.unsplash.com/photo-1541532713592-79a0317b6b77?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80'
+        backgroundImage='https://images.unsplash.com/photo-1485872299829-c673f5194813?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=782&q=80'
         profileSrc='https://images.unsplash.com/profile-1558659324044-e716bda070dc?dpr=1&auto=format&fit=crop&w=64&h=64&q=60&crop=faces&bg=fff'
         title='Karina lago'
       />

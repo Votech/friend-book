@@ -1,0 +1,13 @@
+.friends-sidebar {
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 85px;
+
+  .friends-sidebar__header {
+    color: #65676b;
+    margin: 0 0 10px 0;
+    font-weight: 500;
+    letter-spacing: 1px;
+  }
+}

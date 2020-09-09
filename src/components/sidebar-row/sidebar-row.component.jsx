@@ -8,7 +8,7 @@ const SidebarRow = ({ src, Icon, title }) => {
   return (
     <div className='sidebar__row'>
       {src ? (
-        <Avatar src={src} style={{ width: '32px', height: '32px' }} />
+        <Avatar src={src} style={{ width: '36px', height: '36px' }} />
       ) : null}
       {Icon ? <Icon className='icon' /> : null}
 

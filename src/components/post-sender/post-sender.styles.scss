@@ -1,0 +1,64 @@
+.post-sender {
+  display: flex;
+  flex-direction: column;
+  margin: 20px 0 0 0;
+  background-color: white;
+  border-radius: 15px;
+  width: 100%;
+  box-shadow: 0px 5px 7px -7px rgba(0, 0, 0, 0.75);
+  padding: 10px;
+
+  .post-sender__header {
+    display: flex;
+    border-bottom: 1px solid #eff2f5;
+    padding: 0 0 10px 0;
+
+    form {
+      flex: 1;
+      display: flex;
+
+      input {
+        outline-width: 0;
+        border: none;
+        padding: 5px 20px;
+        margin: 0 10px;
+        border-radius: 999px;
+        background-color: #eff2f5;
+      }
+
+      .post-sender__input {
+        flex: 1;
+      }
+
+      button {
+        display: none;
+      }
+    }
+  }
+
+  .post-sender__options {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 10px 0 0 0;
+
+    .post-sender__option {
+      padding: 6px 10px;
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: gray;
+
+      &:hover {
+        background-color: #eff2f5;
+        border-radius: 12px;
+        cursor: pointer;
+      }
+
+      h4 {
+        margin: 0 0 0 10px;
+        font-weight: 400;
+      }
+    }
+  }
+}
