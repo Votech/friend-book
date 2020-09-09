@@ -1,0 +1,53 @@
+.story-item {
+  position: relative;
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  width: 120px;
+  height: 215px;
+  box-shadow: 0px 5px 17px -7px rgba(0, 0, 0, 0.75);
+  border-radius: 10px;
+  margin: 0 5px;
+  overflow: hidden;
+
+  &:hover {
+    cursor: pointer;
+
+    & .background-image {
+      transform: scale(1.1);
+      transition: transform 1s cubic-bezier(0.25, 0.45, 0.45, 0.95);
+      background-color: rgba(0, 0, 0, 0.1);
+      background-blend-mode: darken;
+    }
+  }
+
+  .background-image {
+    width: 100%;
+    height: 100%;
+    background-position: center;
+    background-size: cover;
+  }
+
+  .content {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    top: 0px;
+    padding: 10px;
+
+    .story-item__avatar {
+      align-self: start;
+      border: 5px solid #2e81f4;
+      border-radius: 100%;
+    }
+
+    h4 {
+      color: white;
+    }
+  }
+}

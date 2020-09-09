@@ -2,10 +2,12 @@ import React from 'react';
 
 import './feed.styles.scss';
 
+import StoryDisplay from '../story-display/story-display.component';
+
 const Feed = () => {
   return (
     <div>
-      <h1>FEED</h1>
+      <StoryDisplay />
     </div>
   );
 };
