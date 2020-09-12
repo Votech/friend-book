@@ -1,0 +1,14 @@
+.dropdown-menu {
+  .dropdown-menu-content {
+    position: absolute;
+    top: 54px;
+    right: 15px;
+    width: 360px;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0px 5px 28px -14px rgba(0, 0, 0, 0.75);
+    padding: 10px;
+  }
+}

@@ -21,3 +21,23 @@
     font-weight: 500;
   }
 }
+
+.header--dropdown {
+  bottom: 0px;
+  h4 {
+    font-weight: 400;
+  }
+
+  &:hover {
+    background-color: #eff2f5;
+  }
+  .MuiSvgIcon-root {
+    color: gray;
+    background-color: rgb(223, 221, 221);
+    border-radius: 100%;
+    width: 36px;
+    height: 36px;
+    padding: 5px;
+    font-size: xx-large;
+  }
+}

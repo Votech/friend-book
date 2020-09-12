@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
+
+import HeaderDropdownSettings from '../header-dropdown-settings/header-dropdown.settings.component';
 
 import SearchIcon from '@material-ui/icons/Search';
 import HomeIcon from '@material-ui/icons/Home';
@@ -34,6 +36,12 @@ const useStyles = makeStyles((theme) => ({
 
 function Header() {
   const classes = useStyles();
+
+  const [isOpened, setIsOpened] = useState(false);
+
+  const toggle = () => {
+    setIsOpened((wasOpened) => !wasOpened);
+  };
 
   return (
     <div className='header'>
@@ -77,9 +85,10 @@ function Header() {
         <IconButton className={classes.iconBackground}>
           <NotificationsIcon />
         </IconButton>
-        <IconButton className={classes.iconBackground}>
+        <IconButton className={classes.iconBackground} onClick={toggle}>
           <ExpandMoreIcon />
         </IconButton>
+        {isOpened ? <HeaderDropdownSettings onClick={toggle} /> : null}
       </div>
     </div>
   );
