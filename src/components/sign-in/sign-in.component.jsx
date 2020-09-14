@@ -38,6 +38,7 @@ class SignIn extends React.Component {
   };
 
   render() {
+    console.log(this.props);
     return (
       <div className='sign-in'>
         <form onSubmit={this.handleSubmit}>
@@ -60,11 +61,15 @@ class SignIn extends React.Component {
           <div className='buttons'>
             <CustomButton type='submit'>Log In</CustomButton>
             <div className='gray-line' />
-            <div>
-              <CustomButton secondary>Create New Account</CustomButton>
-            </div>
           </div>
         </form>
+        <div className='sign-in__bottom'>
+          <div>
+            <CustomButton onClick={() => this.props.toggle()} secondary>
+              Create New Account
+            </CustomButton>
+          </div>
+        </div>
       </div>
     );
   }
