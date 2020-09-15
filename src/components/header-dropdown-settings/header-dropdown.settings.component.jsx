@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import { auth } from '../../firebase/firebase.utils';
 
@@ -11,7 +12,8 @@ import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
 
 import './header-dropdown-settings.styles.scss';
 
-const HeaderDropdownSettingsUser = () => {
+const HeaderDropdownSettingsUser = ({ currentUser }) => {
+  const { name, surname } = currentUser;
   return (
     <div className='Header-dropdown-settings-user'>
       <Avatar
@@ -19,20 +21,24 @@ const HeaderDropdownSettingsUser = () => {
         src='https://image.shutterstock.com/image-photo/close-portrait-smiling-handsome-man-260nw-1011569245.jpg'
       />
       <div className='dropdown-settings-user-info'>
-        <h3>Wojciech Mietliński</h3>
+        <h3>
+          {name} {surname}
+        </h3>
         <p>See your profile</p>
       </div>
     </div>
   );
 };
 
-const HeaderDropdownSettings = ({ ...props }) => {
+const HeaderDropdownSettings = ({ currentUser }) => {
   return (
-    <div className='header-dropdown-settings' {...props}>
+    <div className='header-dropdown-settings'>
       <DropdownMenu>
         <div>
           <SidebarRow
-            CustomComponent={HeaderDropdownSettingsUser}
+            CustomComponent={() => (
+              <HeaderDropdownSettingsUser currentUser={currentUser} />
+            )}
             headerDropdown
           />
           <div className='gray-line' />
@@ -48,4 +54,8 @@ const HeaderDropdownSettings = ({ ...props }) => {
   );
 };
 
-export default HeaderDropdownSettings;
+const mapStateToProps = (state) => ({
+  currentUser: state.user.currentUser,
+});
+
+export default connect(mapStateToProps)(HeaderDropdownSettings);

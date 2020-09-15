@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import './sidebar.styles.scss';
 
@@ -12,12 +13,12 @@ import OndemandVideoRoundedIcon from '@material-ui/icons/OndemandVideoRounded';
 import TodayRoundedIcon from '@material-ui/icons/TodayRounded';
 import RestoreRoundedIcon from '@material-ui/icons/RestoreRounded';
 
-const Sidebar = () => {
+const Sidebar = ({ currentUser }) => {
   return (
     <div className='sidebar'>
       <SidebarRow
         src='https://image.shutterstock.com/image-photo/close-portrait-smiling-handsome-man-260nw-1011569245.jpg'
-        title='Wojciech Mietlinski'
+        title={`${currentUser.name} ${currentUser.surname}`}
       />
       <SidebarRow
         Icon={LocalHospitalIcon}
@@ -33,4 +34,8 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+const mapStateToProps = (state) => ({
+  currentUser: state.user.currentUser,
+});
+
+export default connect(mapStateToProps)(Sidebar);

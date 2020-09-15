@@ -38,7 +38,6 @@ class SignIn extends React.Component {
   };
 
   render() {
-    console.log(this.props);
     return (
       <div className='sign-in'>
         <form onSubmit={this.handleSubmit}>

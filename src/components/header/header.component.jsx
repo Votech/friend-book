@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 
 import HeaderDropdownSettings from '../header-dropdown-settings/header-dropdown.settings.component';
 
@@ -34,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Header() {
+function Header({ currentUser }) {
   const classes = useStyles();
 
   const [isOpened, setIsOpened] = useState(false);
@@ -74,7 +75,7 @@ function Header() {
       <div className='header__right'>
         <div className='header__info'>
           <Avatar src='https://image.shutterstock.com/image-photo/close-portrait-smiling-handsome-man-260nw-1011569245.jpg' />
-          <h4>Wojciech</h4>
+          <h4>{currentUser.name}</h4>
         </div>
         <IconButton className={classes.iconBackground}>
           <AddIcon />
@@ -94,4 +95,8 @@ function Header() {
   );
 }
 
-export default Header;
+const mapStateToProps = (state) => ({
+  currentUser: state.user.currentUser,
+});
+
+export default connect(mapStateToProps)(Header);
