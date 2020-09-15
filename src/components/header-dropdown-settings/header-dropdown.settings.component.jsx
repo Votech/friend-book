@@ -9,6 +9,7 @@ import SidebarRow from '../sidebar-row/sidebar-row.component';
 import { Avatar } from '@material-ui/core';
 
 import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
+import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
 
 import './header-dropdown-settings.styles.scss';
 
@@ -42,6 +43,11 @@ const HeaderDropdownSettings = ({ currentUser }) => {
             headerDropdown
           />
           <div className='gray-line' />
+          <SidebarRow
+            title='Update profile picture'
+            Icon={PhotoLibraryIcon}
+            headerDropdown
+          />
           <SidebarRow
             title='Log out'
             onClick={() => auth.signOut()}
