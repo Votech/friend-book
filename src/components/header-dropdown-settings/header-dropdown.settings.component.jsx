@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import { toggleUpdateProfilePhoto } from '../../redux/user/user.actions';
+
 import { auth } from '../../firebase/firebase.utils';
 
 import DropdownMenu from '../dropdown-menu/dropdown-menu.component';
@@ -13,10 +15,10 @@ import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
 
 import './header-dropdown-settings.styles.scss';
 
-const HeaderDropdownSettingsUser = ({ currentUser }) => {
+const HeaderDropdownSettingsUser = ({ currentUser, ...otherProps }) => {
   const { name, surname } = currentUser;
   return (
-    <div className='Header-dropdown-settings-user'>
+    <div className='Header-dropdown-settings-user' {...otherProps}>
       <Avatar
         className='dropdown-settings-user-avatar'
         src='https://image.shutterstock.com/image-photo/close-portrait-smiling-handsome-man-260nw-1011569245.jpg'
@@ -31,7 +33,7 @@ const HeaderDropdownSettingsUser = ({ currentUser }) => {
   );
 };
 
-const HeaderDropdownSettings = ({ currentUser }) => {
+const HeaderDropdownSettings = ({ currentUser, toggleUpdateProfilePhoto }) => {
   return (
     <div className='header-dropdown-settings'>
       <DropdownMenu>
@@ -46,6 +48,7 @@ const HeaderDropdownSettings = ({ currentUser }) => {
           <SidebarRow
             title='Update profile picture'
             Icon={PhotoLibraryIcon}
+            onClick={() => toggleUpdateProfilePhoto()}
             headerDropdown
           />
           <SidebarRow
@@ -64,4 +67,11 @@ const mapStateToProps = (state) => ({
   currentUser: state.user.currentUser,
 });
 
-export default connect(mapStateToProps)(HeaderDropdownSettings);
+const mapDispatchToProps = (dispatch) => ({
+  toggleUpdateProfilePhoto: () => dispatch(toggleUpdateProfilePhoto()),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(HeaderDropdownSettings);

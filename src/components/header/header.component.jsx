@@ -9,7 +9,6 @@ import OndemandVideoIcon from '@material-ui/icons/OndemandVideo';
 import StorefrontIcon from '@material-ui/icons/Storefront';
 import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
 import VideogameAssetIcon from '@material-ui/icons/VideogameAsset';
-import FlagIcon from '@material-ui/icons/Flag';
 import AddIcon from '@material-ui/icons/Add';
 import ChatIcon from '@material-ui/icons/Chat';
 import NotificationsIcon from '@material-ui/icons/Notifications';
@@ -74,7 +73,7 @@ function Header({ currentUser }) {
       </div>
       <div className='header__right'>
         <div className='header__info'>
-          <Avatar src='https://image.shutterstock.com/image-photo/close-portrait-smiling-handsome-man-260nw-1011569245.jpg' />
+          <Avatar src={`${currentUser.profilePhotoUrl}`} />
           <h4>{currentUser.name}</h4>
         </div>
         <IconButton className={classes.iconBackground}>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import './homepage.styles.scss';
 
@@ -7,15 +8,15 @@ import Feed from '../../components/feed/feed.component';
 import FriendsSidebar from '../../components/friends-sidebar/friends-sidebar.component';
 import UpdateProfilePhoto from '../../components/update-profile-photo/update-profile-photo.component';
 
-const HomePage = () => {
+const HomePage = ({ openUpdateProfilePhoto }) => {
   return (
     <div className='homepage'>
       <div className='homepage__sidebar'>
         <Sidebar />
       </div>
       <div className='homepage__feed'>
+        {openUpdateProfilePhoto && <UpdateProfilePhoto />}
         <Feed />
-        <UpdateProfilePhoto />
       </div>
       <div className='homepage_friendsSidebar'>
         <FriendsSidebar />
@@ -24,4 +25,8 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+const mapStateToProps = (state) => ({
+  openUpdateProfilePhoto: state.user.openUpdateProfilePhoto,
+});
+
+export default connect(mapStateToProps)(HomePage);

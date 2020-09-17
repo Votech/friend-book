@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import './App.css';
 
 import { auth, createUserProfileDocument } from './firebase/firebase.utils';
+
 import { setCurrentUser } from './redux/user/user.actions';
 
 import Header from './components/header/header.component';
@@ -39,7 +40,6 @@ class App extends React.Component {
   }
 
   render() {
-    console.log(this.props);
     return (
       <div className='app'>
         {this.props.currentUser ? (

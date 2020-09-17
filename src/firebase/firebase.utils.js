@@ -38,6 +38,29 @@ export const createUserProfileDocument = async (userAuth, additionlData) => {
   return userRef;
 };
 
+export const addUserData = async (userAuth, url) => {
+  const uid = userAuth.currentUser.uid;
+  const userRef = firestore.doc(`users/${uid}`);
+
+  userRef.set(
+    {
+      profilePhotoUrl: url,
+    },
+    { merge: true }
+  );
+
+  const snapShot = await userRef.get();
+  console.log('uid: ', uid, 'UserRef: ', userRef);
+
+  console.log(snapShot.exists);
+
+  if (snapShot.exists) {
+    console.log('document data: ', snapShot.data());
+  }
+
+  return userRef;
+};
+
 firebase.initializeApp(firebaseConfig);
 
 export const auth = firebase.auth();
