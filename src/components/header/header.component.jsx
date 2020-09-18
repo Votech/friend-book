@@ -73,7 +73,7 @@ function Header({ currentUser }) {
       </div>
       <div className='header__right'>
         <div className='header__info'>
-          <Avatar src={`${currentUser.profilePhotoUrl}`} />
+          <Avatar src={currentUser.profilePhotoUrl} />
           <h4>{currentUser.name}</h4>
         </div>
         <IconButton className={classes.iconBackground}>

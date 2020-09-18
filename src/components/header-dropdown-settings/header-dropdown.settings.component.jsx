@@ -16,13 +16,10 @@ import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
 import './header-dropdown-settings.styles.scss';
 
 const HeaderDropdownSettingsUser = ({ currentUser, ...otherProps }) => {
-  const { name, surname } = currentUser;
+  const { name, surname, profilePhotoUrl } = currentUser;
   return (
     <div className='Header-dropdown-settings-user' {...otherProps}>
-      <Avatar
-        className='dropdown-settings-user-avatar'
-        src='https://image.shutterstock.com/image-photo/close-portrait-smiling-handsome-man-260nw-1011569245.jpg'
-      />
+      <Avatar className='dropdown-settings-user-avatar' src={profilePhotoUrl} />
       <div className='dropdown-settings-user-info'>
         <h3>
           {name} {surname}

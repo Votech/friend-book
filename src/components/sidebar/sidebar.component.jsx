@@ -14,12 +14,10 @@ import TodayRoundedIcon from '@material-ui/icons/TodayRounded';
 import RestoreRoundedIcon from '@material-ui/icons/RestoreRounded';
 
 const Sidebar = ({ currentUser }) => {
+  const { name, surname, profilePhotoUrl } = currentUser;
   return (
     <div className='sidebar'>
-      <SidebarRow
-        src='https://image.shutterstock.com/image-photo/close-portrait-smiling-handsome-man-260nw-1011569245.jpg'
-        title={`${currentUser.name} ${currentUser.surname}`}
-      />
+      <SidebarRow src={profilePhotoUrl} title={`${name} ${surname}`} />
       <SidebarRow
         Icon={LocalHospitalIcon}
         title='COVID-19 Information Center'

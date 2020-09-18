@@ -1,0 +1,118 @@
+.post {
+  display: flex;
+  flex-direction: column;
+  margin: 20px 0 0 0;
+  background-color: white;
+  border-radius: 15px;
+  max-width: 650px;
+  box-shadow: 0px 5px 7px -7px rgba(0, 0, 0, 0.75);
+
+  .post-header {
+    padding: 10px 16px 0 16px;
+    display: flex;
+
+    .post-header__user-info {
+      margin: 0 0 0 8px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+
+      h4 {
+        font-size: 15px;
+        font-weight: 500;
+      }
+
+      p {
+        font-size: 13px;
+        color: #65676b;
+      }
+    }
+  }
+
+  .post-content {
+    p {
+      padding: 0 16px;
+      margin: 10px 0;
+    }
+
+    img {
+      width: 100%;
+      max-height: 600px;
+    }
+
+    .post-content__likes-and-comments {
+      padding: 0 16px;
+      margin: 0 0;
+      display: flex;
+      justify-content: space-between;
+      color: #65676b;
+
+      .post-content__comments {
+        &:hover {
+          text-decoration: underline;
+          cursor: pointer;
+        }
+      }
+
+      .post-content__likes {
+        padding: 0 6px;
+        display: flex;
+        align-items: center;
+
+        p {
+          color: #65676b;
+          margin: 0;
+          padding-left: 8px;
+        }
+      }
+    }
+
+    .post-content__options {
+      display: flex;
+      margin: 0 16px;
+      justify-content: space-around;
+      border-top: 1px solid #bec3c9;
+      border-bottom: 1px solid #bec3c9;
+
+      .post-content__option {
+        display: flex;
+        flex: 1;
+        justify-content: center;
+        align-items: center;
+        margin: 4px 0;
+        padding: 4px 0;
+        color: #7f8388;
+        cursor: pointer;
+
+        &:hover {
+          background-color: whitesmoke;
+          border-radius: 8px;
+        }
+
+        P {
+          font-weight: 600;
+          margin: 0;
+        }
+      }
+    }
+  }
+
+  .post-bottom {
+    padding: 10px 16px;
+    display: flex;
+
+    .post-bottom__input {
+      width: 100%;
+      outline-width: 0;
+      border: none;
+      padding: 10px 12px;
+      margin: 0 0 0 8px;
+      border-radius: 999px;
+      background-color: #eff2f5;
+
+      &::placeholder {
+        font-size: 15px;
+      }
+    }
+  }
+}
