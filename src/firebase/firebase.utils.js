@@ -61,6 +61,19 @@ export const addUserData = async (userAuth, url) => {
   return userRef;
 };
 
+export const addPost = (data) => {
+  firestore.collection('posts').doc().set({
+    message: data.message,
+    photoUrl: data.photoUrl,
+    username: data.username,
+    authorProfilePhotoUrl: data.authorProfilePhotoUrl,
+    authorId: data.authorId,
+    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+    comments: '0',
+    likes: '0',
+  });
+};
+
 firebase.initializeApp(firebaseConfig);
 
 export const auth = firebase.auth();
