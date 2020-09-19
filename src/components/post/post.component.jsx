@@ -15,6 +15,7 @@ const Post = ({
   message,
   photoUrl,
   username,
+  createdAt,
 }) => {
   return (
     <div className='post'>
@@ -22,7 +23,7 @@ const Post = ({
         <Avatar src={authorProfilePhotoUrl} />
         <div className='post-header__user-info'>
           <h4>{username}</h4>
-          <p>02.09.2020</p>
+          <p>{createdAt && createdAt.toDate().toUTCString()}</p>
         </div>
       </div>
       <div className='post-content'>

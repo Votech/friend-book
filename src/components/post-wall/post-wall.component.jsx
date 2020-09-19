@@ -15,6 +15,7 @@ class PostWall extends React.Component {
   componentDidMount() {
     this.unsubscribeFromSnapshot = firestore
       .collection('posts')
+      .orderBy('createdAt', 'desc')
       .onSnapshot((snapshot) => {
         this.setState(
           {
@@ -45,9 +46,9 @@ class PostWall extends React.Component {
             message={post.data.message}
             photoUrl={post.data.photoUrl}
             username={post.data.username}
+            createdAt={post.data.createdAt}
           />
         ))}
-        {console.log(typeof posts)}
       </div>
     );
   }

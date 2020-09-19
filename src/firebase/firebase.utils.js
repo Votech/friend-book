@@ -42,12 +42,9 @@ export const addUserData = async (userAuth, url) => {
   const uid = userAuth.currentUser.uid;
   const userRef = firestore.doc(`users/${uid}`);
 
-  userRef.set(
-    {
-      profilePhotoUrl: url,
-    },
-    { merge: true }
-  );
+  userRef.update({
+    profilePhotoUrl: url,
+  });
 
   const snapShot = await userRef.get();
   console.log('uid: ', uid, 'UserRef: ', userRef);
@@ -61,8 +58,8 @@ export const addUserData = async (userAuth, url) => {
   return userRef;
 };
 
-export const addPost = (data) => {
-  firestore.collection('posts').doc().set({
+export const addPost = async (data) => {
+  const docRef = await firestore.collection('posts').add({
     message: data.message,
     photoUrl: data.photoUrl,
     username: data.username,
@@ -72,6 +69,16 @@ export const addPost = (data) => {
     comments: '0',
     likes: '0',
   });
+
+  try {
+    const docAdded = await docRef;
+    firestore.doc(`posts/${docAdded.id}`).update({ id: docAdded.id });
+    return docRef;
+  } catch (error) {
+    console.log('error: ', error);
+  }
+
+  return docRef;
 };
 
 firebase.initializeApp(firebaseConfig);
