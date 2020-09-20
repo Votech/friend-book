@@ -13,7 +13,7 @@ class PostWall extends React.Component {
   unsubscribeFromOnSnapshot = null;
 
   componentDidMount() {
-    this.unsubscribeFromSnapshot = firestore
+    this.unsubscribeFromOnSnapshot = firestore
       .collection('posts')
       .orderBy('createdAt', 'desc')
       .onSnapshot((snapshot) => {
@@ -40,6 +40,7 @@ class PostWall extends React.Component {
         {posts.map((post) => (
           <Post
             key={post.id}
+            postId={post.data.id}
             authorProfilePhotoUrl={post.data.authorProfilePhotoUrl}
             comments={post.data.comments}
             likes={post.data.likes}

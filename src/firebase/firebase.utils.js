@@ -20,12 +20,11 @@ export const createUserProfileDocument = async (userAuth, additionlData) => {
   const snapShot = await userRef.get();
 
   if (!snapShot.exists) {
-    const { email, displayName } = userAuth;
+    const { email } = userAuth;
     const createdAt = new Date();
 
     try {
       await userRef.set({
-        displayName,
         email,
         createdAt,
         ...additionlData,
@@ -67,7 +66,7 @@ export const addPost = async (data) => {
     authorId: data.authorId,
     createdAt: firebase.firestore.FieldValue.serverTimestamp(),
     comments: '0',
-    likes: '0',
+    likes: [],
   });
 
   try {
@@ -79,6 +78,12 @@ export const addPost = async (data) => {
   }
 
   return docRef;
+};
+
+export const addLike = async (postId, userId) => {
+  const postRef = await firestore.doc(`posts/${postId}`);
+  postRef.update({ likes: firebase.firestore.FieldValue.arrayUnion(userId) });
+  console.log(postRef);
 };
 
 firebase.initializeApp(firebaseConfig);

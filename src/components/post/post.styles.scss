@@ -35,9 +35,15 @@
       margin: 10px 0;
     }
 
-    img {
-      max-width: 100%;
-      height: auto;
+    .post-content__image-container {
+      display: flex;
+      justify-content: center;
+      img {
+        max-width: 100%;
+        height: auto;
+        align-self: center;
+        text-align: center;
+      }
     }
 
     .post-content__likes-and-comments {
@@ -112,6 +118,12 @@
 
       &::placeholder {
         font-size: 15px;
+      }
+
+      &:focus {
+        &::placeholder {
+          color: #bdbfc2;
+        }
       }
     }
   }

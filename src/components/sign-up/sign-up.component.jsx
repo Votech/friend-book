@@ -19,13 +19,22 @@ class SignUp extends React.Component {
       password: '',
       dateOfBirth: '',
       gender: '',
+      profilePhotoUrl: '',
     };
   }
 
   handleSubmit = async (event) => {
     event.preventDefault();
 
-    const { email, password, name, surname, dateOfBirth, gender } = this.state;
+    const {
+      email,
+      password,
+      name,
+      surname,
+      dateOfBirth,
+      gender,
+      profilePhotoUrl,
+    } = this.state;
 
     try {
       const { user } = await auth.createUserWithEmailAndPassword(
@@ -38,6 +47,7 @@ class SignUp extends React.Component {
         surname,
         dateOfBirth,
         gender,
+        profilePhotoUrl,
       });
     } catch (error) {
       console.log(error);
@@ -121,15 +131,10 @@ class SignUp extends React.Component {
                 <div
                   className='sign-up-form__radio-option'
                   onChange={this.handleChange}
+                  required
                 >
                   <label htmlFor='male'>Male</label>
-                  <input
-                    type='radio'
-                    id='male'
-                    name='gender'
-                    value='male'
-                    required
-                  />
+                  <input type='radio' id='male' name='gender' value='male' />
                 </div>
                 <div className='sign-up-form__radio-option'>
                   <label htmlFor='female'>Female</label>
