@@ -1,7 +1,9 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { connect } from 'react-redux';
 
-import { addLike } from '../../firebase/firebase.utils';
+import { addLike, addComment } from '../../firebase/firebase.utils';
+
+import CommentsList from '../comments-list/comments-list.component';
 
 import './post.styles.scss';
 
@@ -22,8 +24,16 @@ const Post = ({
   profilePhotoUrl,
   postId,
   userId,
+  currentUser,
 }) => {
   const commentInput = useRef(null);
+
+  const [isOpened, setIsOpened] = useState(false);
+  const [commentHookInput, setCommentHookInput] = useState('');
+
+  const toggleComments = async () => {
+    setIsOpened((wasOpened) => !wasOpened);
+  };
 
   const handleLikes = () => {
     if (likes.length === 1 && likes[0] === userId) {
@@ -39,11 +49,28 @@ const Post = ({
 
   const handleLikeClick = () => {
     addLike(postId, userId);
-    console.log(postId);
+  };
+
+  const handleSendComment = (event) => {
+    event.preventDefault();
+
+    const data = {
+      userId: userId,
+      name: currentUser.name,
+      surname: currentUser.surname,
+      profilePhotoUrl: profilePhotoUrl,
+      message: commentHookInput,
+    };
+
+    addComment(postId, data);
+    !isOpened && toggleComments();
+    setCommentHookInput('');
   };
 
   const handleCommentInputFocus = () => {
-    commentInput.current.focus();
+    setTimeout(() => {
+      !isOpened && commentInput.current.focus();
+    }, 200);
   };
 
   return (
@@ -65,7 +92,12 @@ const Post = ({
             <ThumbUpIcon style={{ color: '#2e81f4' }} />
             <p>{handleLikes()}</p>
           </div>
-          <p className='post-content__comments'>{comments} comments</p>
+          <p
+            className='post-content__comments'
+            onClick={() => toggleComments()}
+          >
+            {comments} comments
+          </p>
         </div>
         <div className='post-content__options'>
           <div className='post-content__option' onClick={handleLikeClick}>
@@ -74,7 +106,10 @@ const Post = ({
           </div>
           <div
             className='post-content__option'
-            onClick={() => handleCommentInputFocus()}
+            onClick={() => {
+              toggleComments();
+              handleCommentInputFocus();
+            }}
           >
             <ModeCommentOutlinedIcon />
             <p>Comment</p>
@@ -82,12 +117,20 @@ const Post = ({
         </div>
       </div>
       <div className='post-bottom'>
-        <Avatar src={profilePhotoUrl} />
-        <input
-          className='post-bottom__input'
-          placeholder='Write a comment...'
-          ref={commentInput}
-        />
+        {isOpened && <CommentsList postId={postId} />}
+        <div className='post-bottom__comment-input'>
+          <Avatar src={profilePhotoUrl} />
+          <form onSubmit={handleSendComment}>
+            <input
+              className='post-bottom__input'
+              placeholder='Write a comment...'
+              ref={commentInput}
+              value={commentHookInput}
+              onChange={(e) => setCommentHookInput(e.target.value)}
+            />
+            <button type='submit' />
+          </form>
+        </div>
       </div>
     </div>
   );
@@ -96,6 +139,7 @@ const Post = ({
 const mapStateToProps = (state) => ({
   profilePhotoUrl: state.user.currentUser.profilePhotoUrl,
   userId: state.user.currentUser.id,
+  currentUser: state.user.currentUser,
 });
 
 export default connect(mapStateToProps)(Post);

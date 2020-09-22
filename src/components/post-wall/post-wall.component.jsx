@@ -17,15 +17,12 @@ class PostWall extends React.Component {
       .collection('posts')
       .orderBy('createdAt', 'desc')
       .onSnapshot((snapshot) => {
-        this.setState(
-          {
-            posts: snapshot.docs.map((doc) => ({
-              id: doc.id,
-              data: doc.data(),
-            })),
-          },
-          () => console.log(this.state)
-        );
+        this.setState({
+          posts: snapshot.docs.map((doc) => ({
+            id: doc.id,
+            data: doc.data(),
+          })),
+        });
       });
   }
 

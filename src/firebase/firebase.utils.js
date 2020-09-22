@@ -83,7 +83,18 @@ export const addPost = async (data) => {
 export const addLike = async (postId, userId) => {
   const postRef = await firestore.doc(`posts/${postId}`);
   postRef.update({ likes: firebase.firestore.FieldValue.arrayUnion(userId) });
-  console.log(postRef);
+};
+
+export const addComment = async (postId, data) => {
+  const docRef = await firestore.collection(`posts/${postId}/comments`);
+
+  docRef.add({
+    message: data.message,
+    username: `${data.name} ${data.surname}`,
+    authorProfilePhotoUrl: data.profilePhotoUrl,
+    authorId: data.userId,
+    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+  });
 };
 
 firebase.initializeApp(firebaseConfig);
