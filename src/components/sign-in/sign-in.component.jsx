@@ -46,6 +46,7 @@ class SignIn extends React.Component {
             type='email'
             value={this.state.email}
             onChange={this.handleChange}
+            autoComplete='username'
             placeholder='Email'
             required
           />
@@ -55,6 +56,7 @@ class SignIn extends React.Component {
             value={this.state.password}
             onChange={this.handleChange}
             placeholder='Password'
+            autoComplete='current-password'
             required
           />
           <div className='buttons'>

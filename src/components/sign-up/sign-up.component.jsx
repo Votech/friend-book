@@ -79,6 +79,7 @@ class SignUp extends React.Component {
                 placeholder='Frist name'
                 name='name'
                 value={name}
+                autoComplete='name'
                 onChange={this.handleChange}
                 required
               />
@@ -88,6 +89,7 @@ class SignUp extends React.Component {
                 placeholder='Surname'
                 name='surname'
                 value={surname}
+                autoComplete='family-name'
                 onChange={this.handleChange}
                 required
               />
@@ -98,6 +100,7 @@ class SignUp extends React.Component {
               type='email'
               name='email'
               value={email}
+              autoComplete='email'
               onChange={this.handleChange}
               required
             />
@@ -107,6 +110,7 @@ class SignUp extends React.Component {
               type='password'
               name='password'
               value={password}
+              autoComplete='new-password'
               onChange={this.handleChange}
               required
             />
@@ -119,6 +123,7 @@ class SignUp extends React.Component {
                 type='date'
                 name='dateOfBirth'
                 value={dateOfBirth}
+                autoComplete='bday'
                 onChange={this.handleChange}
                 required
               />

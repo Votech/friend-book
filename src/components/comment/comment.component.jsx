@@ -5,8 +5,6 @@ import './comment.styles.scss';
 import { Avatar } from '@material-ui/core';
 
 const Comment = ({ message, username, createdAt, authorProfilePhotoUrl }) => {
-  console.log(message);
-
   const timestamp = createdAt && createdAt.toDate().toUTCString();
 
   const timestampToComment =

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { addPost, firestore } from '../../firebase/firebase.utils';
+import { addPost, storage } from '../../firebase/firebase.utils';
 
 import './post-sender.styles.scss';
 
@@ -18,7 +18,6 @@ class PostSender extends React.Component {
     this.state = {
       message: '',
       photoUrl: '',
-      snapshot: {},
     };
   }
 
@@ -49,6 +48,18 @@ class PostSender extends React.Component {
     const { name, value } = e.target;
     this.setState({ [name]: value });
   };
+
+  handleFileChange = (e) => {
+    const file = e.target.files[0];
+    const storageRef = storage.ref();
+    const fileRef = storageRef.child(
+      `${this.props.currentUser.id}/${file.name}`
+    );
+
+    fileRef.put(file).then(() => console.log('Uploaded a file'));
+  };
+
+  handlePhotoButton = (e) => {};
 
   render() {
     const { message, photoUrl } = this.state;
@@ -84,6 +95,7 @@ class PostSender extends React.Component {
             <PhotoLibraryIcon style={{ color: 'green' }} />
             <h4>Photo/Video</h4>
           </div>
+          <input type='file' onChange={this.handleFileChange} />
           <div className='post-sender__option'>
             <InsertEmoticonIcon style={{ color: 'orange' }} />
             <h4>Feeling/Activity</h4>

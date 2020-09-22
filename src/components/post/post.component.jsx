@@ -1,7 +1,7 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
-import { addLike, addComment } from '../../firebase/firebase.utils';
+import { addLike, addComment, firestore } from '../../firebase/firebase.utils';
 
 import CommentsList from '../comments-list/comments-list.component';
 
@@ -29,9 +29,16 @@ const Post = ({
   const commentInput = useRef(null);
 
   const [isOpened, setIsOpened] = useState(false);
+  const [numberOfComments, setNumberOfComments] = useState(null);
   const [commentHookInput, setCommentHookInput] = useState('');
 
-  const toggleComments = async () => {
+  useEffect(() => {
+    const commentsRef = firestore.collection(`posts/${postId}/comments`);
+
+    commentsRef.onSnapshot((snapshot) => setNumberOfComments(snapshot.size));
+  }, [postId]);
+
+  const toggleComments = () => {
     setIsOpened((wasOpened) => !wasOpened);
   };
 
@@ -67,10 +74,8 @@ const Post = ({
     setCommentHookInput('');
   };
 
-  const handleCommentInputFocus = () => {
-    setTimeout(() => {
-      !isOpened && commentInput.current.focus();
-    }, 200);
+  const commentInputFocus = () => {
+    commentInput.current.focus();
   };
 
   return (
@@ -96,7 +101,7 @@ const Post = ({
             className='post-content__comments'
             onClick={() => toggleComments()}
           >
-            {comments} comments
+            {numberOfComments} comments
           </p>
         </div>
         <div className='post-content__options'>
@@ -106,10 +111,7 @@ const Post = ({
           </div>
           <div
             className='post-content__option'
-            onClick={() => {
-              toggleComments();
-              handleCommentInputFocus();
-            }}
+            onClick={() => commentInputFocus()}
           >
             <ModeCommentOutlinedIcon />
             <p>Comment</p>
