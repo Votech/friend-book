@@ -8,7 +8,7 @@ const Comment = ({ message, username, createdAt, authorProfilePhotoUrl }) => {
   const timestamp = createdAt && createdAt.toDate().toUTCString();
 
   const timestampToComment =
-    timestamp && timestamp.substring(5, timestamp.length - 4);
+    timestamp && timestamp.substring(5, timestamp.length - 7);
 
   return (
     <div className='comment'>

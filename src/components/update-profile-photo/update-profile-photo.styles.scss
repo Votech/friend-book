@@ -25,7 +25,6 @@
       width: 100%;
       position: relative;
       border-bottom: 1px solid #ccd0d5;
-      margin-bottom: 10px;
 
       h2 {
         font-size: 21px;
@@ -39,6 +38,7 @@
         right: 0px;
         background: none;
         border: none;
+        cursor: pointer;
 
         &:focus {
           outline: none;
@@ -54,40 +54,70 @@
     .update-profile-photo__bottom {
       form {
         display: flex;
-        justify-content: space-between;
+        flex-direction: column;
 
-        .update-profile-photo__input {
-          width: 78%;
-          outline-width: 0;
-          border: none;
-          padding: 11px 20px;
-          border-radius: 999px;
-          background-color: #eff2f5;
+        .option-title {
+          display: flex;
+          margin: 10px 0;
+
+          h2 {
+            margin: 0 0 0 2px;
+            font-weight: 400;
+            font-size: 16px;
+            color: #808080;
+          }
+        }
+      }
+
+      .update-profile-photo__input {
+        width: 100%;
+        outline-width: 0;
+        border: none;
+        padding: 11px 20px;
+        border-radius: 999px;
+        background-color: #eff2f5;
+        margin-bottom: 10px;
+      }
+
+      .update-profile-photo__input-file {
+        margin-bottom: 10px;
+      }
+
+      button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: none;
+        background: none;
+        padding: 4px;
+        color: rgb(92, 92, 92);
+
+        h4 {
+          margin-left: 2px;
         }
 
-        button {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          border: none;
-          background: none;
-          padding: 4px;
-          color: rgb(92, 92, 92);
+        &:focus {
+          outline: none;
+        }
 
-          h4 {
-            margin-left: 2px;
-          }
-
-          &:focus {
-            outline: none;
-          }
-
-          &:hover {
-            border-radius: 8px;
-            background-color: #eff2f5;
-          }
+        &:hover {
+          border-radius: 8px;
+          background-color: #eff2f5;
+          cursor: pointer;
         }
       }
     }
   }
+}
+
+.update-profile-photo__gray-line {
+  background-color: #ccd0d5;
+  height: 1px;
+  width: 100%;
+  margin: 10px 0;
+}
+
+.option-title-url {
+  padding-top: 10px;
+  border-top: 1px solid #ccd0d5;
 }

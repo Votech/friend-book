@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { toggleUpdateProfilePhoto } from '../../redux/user/user.actions';
+import { toggleUpdateProfilePhoto } from '../../redux/user-interface/user-interface.actions';
 
 import { auth } from '../../firebase/firebase.utils';
 

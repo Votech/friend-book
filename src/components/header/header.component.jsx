@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
+
+import { toggleHeaderDropdownSettings } from '../../redux/user-interface/user-interface.actions';
 
 import HeaderDropdownSettings from '../header-dropdown-settings/header-dropdown.settings.component';
 
@@ -34,14 +36,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Header({ currentUser }) {
+function Header({
+  currentUser,
+  openHeaderDropdownSetting,
+  toggleHeaderDropdownSettings,
+}) {
   const classes = useStyles();
-
-  const [isOpened, setIsOpened] = useState(false);
-
-  const toggle = () => {
-    setIsOpened((wasOpened) => !wasOpened);
-  };
 
   return (
     <div className='header'>
@@ -85,10 +85,13 @@ function Header({ currentUser }) {
         <IconButton className={classes.iconBackground}>
           <NotificationsIcon />
         </IconButton>
-        <IconButton className={classes.iconBackground} onClick={toggle}>
+        <IconButton
+          className={classes.iconBackground}
+          onClick={() => toggleHeaderDropdownSettings()}
+        >
           <ExpandMoreIcon />
         </IconButton>
-        {isOpened ? <HeaderDropdownSettings onClick={toggle} /> : null}
+        {openHeaderDropdownSetting && <HeaderDropdownSettings />}
       </div>
     </div>
   );
@@ -96,6 +99,11 @@ function Header({ currentUser }) {
 
 const mapStateToProps = (state) => ({
   currentUser: state.user.currentUser,
+  openHeaderDropdownSetting: state.userInterface.openHeaderDropdownSettings,
 });
 
-export default connect(mapStateToProps)(Header);
+const mapDispatchToProps = (dispatch) => ({
+  toggleHeaderDropdownSettings: () => dispatch(toggleHeaderDropdownSettings()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

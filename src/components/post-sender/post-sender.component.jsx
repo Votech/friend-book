@@ -3,6 +3,9 @@ import { connect } from 'react-redux';
 
 import { addPost, storage } from '../../firebase/firebase.utils';
 
+import PhotoUploader from '../photo-uploader/photo-uploader.component';
+import CustomButton from '../custom-button/custom-button.component';
+
 import './post-sender.styles.scss';
 
 import VideocamIcon from '@material-ui/icons/Videocam';
@@ -10,6 +13,8 @@ import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
 import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
 
 import { Avatar } from '@material-ui/core';
+import { setProfilePhotoUrl } from '../../redux/user/user.actions';
+import { FilterOutlined } from '@material-ui/icons';
 
 class PostSender extends React.Component {
   constructor() {
@@ -18,6 +23,7 @@ class PostSender extends React.Component {
     this.state = {
       message: '',
       photoUrl: '',
+      isPhotoUploaderOpen: false,
     };
   }
 
@@ -52,17 +58,28 @@ class PostSender extends React.Component {
   handleFileChange = (e) => {
     const file = e.target.files[0];
     const storageRef = storage.ref();
-    const fileRef = storageRef.child(
-      `${this.props.currentUser.id}/${file.name}`
-    );
 
-    fileRef.put(file).then(() => console.log('Uploaded a file'));
+    if (file) {
+      const fileRef = storageRef.child(
+        `${this.props.currentUser.id}/${file.name}`
+      );
+
+      fileRef
+        .put(file)
+        .then(() =>
+          fileRef
+            .getDownloadURL()
+            .then((fileUrl) => this.setState({ photoUrl: fileUrl }))
+        );
+    }
   };
 
-  handlePhotoButton = (e) => {};
+  togglePhotoUploaderOpen = () => {
+    this.setState({ isPhotoUploaderOpen: !this.state.isPhotoUploaderOpen });
+  };
 
   render() {
-    const { message, photoUrl } = this.state;
+    const { message, photoUrl, isPhotoUploaderOpen } = this.state;
     const { currentUser } = this.props;
     return (
       <div className='post-sender'>
@@ -76,31 +93,34 @@ class PostSender extends React.Component {
               value={message}
               onChange={this.handleChange}
             />
-            <input
-              placeholder='image URL (Optional)'
-              name='photoUrl'
-              value={photoUrl}
-              onChange={this.handleChange}
-            />
-            <button type='submit'>Hidden submit</button>
+            <div>
+              <CustomButton noMargin type='submit' style={{}}>
+                Publish
+              </CustomButton>
+            </div>
           </form>
         </div>
 
         <div className='post-sender__options'>
-          <div className='post-sender__option'>
-            <VideocamIcon style={{ color: 'red' }} />
-            <h4>Live Video</h4>
-          </div>
-          <div className='post-sender__option'>
+          <div
+            className='post-sender__option'
+            onClick={() => this.togglePhotoUploaderOpen()}
+          >
             <PhotoLibraryIcon style={{ color: 'green' }} />
             <h4>Photo/Video</h4>
           </div>
-          <input type='file' onChange={this.handleFileChange} />
           <div className='post-sender__option'>
             <InsertEmoticonIcon style={{ color: 'orange' }} />
             <h4>Feeling/Activity</h4>
           </div>
         </div>
+        {isPhotoUploaderOpen && (
+          <PhotoUploader
+            handleChange={this.handleChange}
+            handleFileChange={this.handleFileChange}
+            photoUrl={photoUrl}
+          />
+        )}
       </div>
     );
   }

@@ -26,7 +26,7 @@ const HomePage = ({ openUpdateProfilePhoto }) => {
 };
 
 const mapStateToProps = (state) => ({
-  openUpdateProfilePhoto: state.user.openUpdateProfilePhoto,
+  openUpdateProfilePhoto: state.userInterface.openUpdateProfilePhoto,
 });
 
 export default connect(mapStateToProps)(HomePage);
