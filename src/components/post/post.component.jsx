@@ -15,7 +15,7 @@ import ModeCommentOutlinedIcon from '@material-ui/icons/ModeCommentOutlined';
 
 const Post = ({
   authorProfilePhotoUrl,
-  comments,
+  isFeeling,
   likes,
   message,
   photoUrl,
@@ -83,7 +83,12 @@ const Post = ({
       <div className='post-header'>
         <Avatar src={authorProfilePhotoUrl} />
         <div className='post-header__user-info'>
-          <h4>{username}</h4>
+          <div className='post-header__status'>
+            <h4>{username}</h4>
+            {isFeeling && (
+              <h4 className='post-header__is-feeling'>{` is ${isFeeling.emoji} feeling ${isFeeling.feeling}`}</h4>
+            )}
+          </div>
           <p>{createdAt && createdAt.toDate().toUTCString()}</p>
         </div>
       </div>

@@ -11,11 +11,11 @@ import UpdateProfilePhoto from '../../components/update-profile-photo/update-pro
 const HomePage = ({ openUpdateProfilePhoto }) => {
   return (
     <div className='homepage'>
+      {openUpdateProfilePhoto && <UpdateProfilePhoto />}
       <div className='homepage__sidebar'>
         <Sidebar />
       </div>
       <div className='homepage__feed'>
-        {openUpdateProfilePhoto && <UpdateProfilePhoto />}
         <Feed />
       </div>
       <div className='homepage_friendsSidebar'>

@@ -45,6 +45,7 @@ class PostWall extends React.Component {
             photoUrl={post.data.photoUrl}
             username={post.data.username}
             createdAt={post.data.createdAt}
+            isFeeling={post.data.isFeeling}
           />
         ))}
       </div>

@@ -17,9 +17,21 @@
       flex-direction: column;
       justify-content: space-around;
 
-      h4 {
-        font-size: 15px;
-        font-weight: 500;
+      .post-header__status {
+        display: flex;
+        h4 {
+          font-size: 15px;
+          font-weight: 500;
+        }
+
+        .post-header__is-feeling {
+          font-size: 15px;
+          font-weight: 400;
+          margin-left: 4px;
+          position: relative;
+          bottom: 1px;
+          color: gray;
+        }
       }
 
       p {

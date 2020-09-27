@@ -9,3 +9,9 @@ export const toggleHeaderDropdownSettings = () => {
     type: UserInterfaceActionTypes.TOGGLE_HEADER_DROPDOWN_SETTINGS,
   };
 };
+
+export const toggleFeelingActivity = () => {
+  return {
+    type: UserInterfaceActionTypes.TOGGLE_FEELING_ACTIVITY,
+  };
+};

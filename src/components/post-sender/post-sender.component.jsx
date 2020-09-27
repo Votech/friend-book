@@ -1,20 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { toggleFeelingActivity } from '../../redux/user-interface/user-interface.actions';
 
 import { addPost, storage } from '../../firebase/firebase.utils';
 
 import PhotoUploader from '../photo-uploader/photo-uploader.component';
 import CustomButton from '../custom-button/custom-button.component';
+import FeelingActivity from '../../components/feeling-activity/feeling-activity.component';
 
 import './post-sender.styles.scss';
 
-import VideocamIcon from '@material-ui/icons/Videocam';
 import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
 import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
 
 import { Avatar } from '@material-ui/core';
-import { setProfilePhotoUrl } from '../../redux/user/user.actions';
-import { FilterOutlined } from '@material-ui/icons';
 
 class PostSender extends React.Component {
   constructor() {
@@ -23,13 +22,14 @@ class PostSender extends React.Component {
     this.state = {
       message: '',
       photoUrl: '',
+      isFeeling: { emoji: '', feeling: '' },
       isPhotoUploaderOpen: false,
     };
   }
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const { message, photoUrl } = this.state;
+    const { message, photoUrl, isFeeling } = this.state;
     const { name, surname, profilePhotoUrl, id } = this.props.currentUser;
 
     const username = `${name} ${surname}`;
@@ -39,15 +39,22 @@ class PostSender extends React.Component {
       message: message,
       photoUrl: photoUrl,
       authorProfilePhotoUrl: profilePhotoUrl,
+      isFeeling: isFeeling,
       authorId: id,
     };
 
-    addPost(data);
+    if (message || photoUrl !== '') {
+      addPost(data);
 
-    this.setState({
-      message: '',
-      photoUrl: '',
-    });
+      this.setState({
+        message: '',
+        photoUrl: '',
+        isFeeling: { emoji: '', feeling: '' },
+        isPhotoUploaderOpen: false,
+      });
+    } else {
+      alert('Add a photo or message to publish a post');
+    }
   };
 
   handleChange = (e) => {
@@ -78,9 +85,22 @@ class PostSender extends React.Component {
     this.setState({ isPhotoUploaderOpen: !this.state.isPhotoUploaderOpen });
   };
 
+  handleIsFeeling = (emoji, feeling) => {
+    this.setState({
+      isFeeling: {
+        emoji: emoji,
+        feeling: feeling,
+      },
+    });
+  };
+
   render() {
     const { message, photoUrl, isPhotoUploaderOpen } = this.state;
-    const { currentUser } = this.props;
+    const {
+      currentUser,
+      openFeelingActivity,
+      toggleFeelingActivity,
+    } = this.props;
     return (
       <div className='post-sender'>
         <div className='post-sender__header'>
@@ -109,7 +129,10 @@ class PostSender extends React.Component {
             <PhotoLibraryIcon style={{ color: 'green' }} />
             <h4>Photo/Video</h4>
           </div>
-          <div className='post-sender__option'>
+          <div
+            className='post-sender__option'
+            onClick={() => toggleFeelingActivity()}
+          >
             <InsertEmoticonIcon style={{ color: 'orange' }} />
             <h4>Feeling/Activity</h4>
           </div>
@@ -121,6 +144,13 @@ class PostSender extends React.Component {
             photoUrl={photoUrl}
           />
         )}
+        {openFeelingActivity && (
+          <FeelingActivity
+            handleIsFeeling={this.handleIsFeeling}
+            isFeeling={this.state.isFeeling}
+            emoji={this.state.emoji}
+          />
+        )}
       </div>
     );
   }
@@ -128,6 +158,11 @@ class PostSender extends React.Component {
 
 const mapStateToProps = (state) => ({
   currentUser: state.user.currentUser,
+  openFeelingActivity: state.userInterface.openFeelingActivity,
 });
 
-export default connect(mapStateToProps)(PostSender);
+const mapDispatchToProps = (dispatch) => ({
+  toggleFeelingActivity: () => dispatch(toggleFeelingActivity()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostSender);

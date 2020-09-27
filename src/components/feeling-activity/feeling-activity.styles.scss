@@ -1,0 +1,74 @@
+.feeling-activity {
+  .feeling-activity__header {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    position: relative;
+    border-bottom: 1px solid #ccd0d5;
+
+    h2 {
+      font-size: 21px;
+      color: #050505;
+      margin-bottom: 10px;
+    }
+
+    button {
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      background: none;
+      border: none;
+      cursor: pointer;
+
+      &:focus {
+        outline: none;
+      }
+
+      .MuiSvgIcon-root {
+        height: 30px;
+        width: 30px;
+      }
+    }
+  }
+
+  .felling-activity__is-feeling {
+    border-bottom: 1px solid #ccd0d5;
+    h4 {
+      display: flex;
+      font-size: 15px;
+      color: #050505;
+      padding: 10px;
+    }
+  }
+
+  .feeling-activity__list {
+    div {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+
+      .feeling-activity__option {
+        display: flex;
+        align-items: center;
+        padding: 8px;
+
+        &:hover {
+          background-color: #eef3f5;
+          border-radius: 10px;
+          cursor: pointer;
+        }
+
+        .feeling-activity__emoji {
+          background-color: #dfe1e6;
+          border-radius: 100%;
+          padding: 10px;
+          height: 36px;
+          width: 36px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin-right: 12px;
+        }
+      }
+    }
+  }
+}

@@ -65,6 +65,7 @@ export const addPost = async (data) => {
     username: data.username,
     authorProfilePhotoUrl: data.authorProfilePhotoUrl,
     authorId: data.authorId,
+    isFeeling: data.isFeeling,
     createdAt: firebase.firestore.FieldValue.serverTimestamp(),
     comments: '0',
     likes: [],

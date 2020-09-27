@@ -3,6 +3,7 @@ import { UserInterfaceActionTypes } from './user-interface.types';
 const INITIAL_STATE = {
   openUpdateProfilePhoto: false,
   openHeaderDropdownSettings: false,
+  openFeelingActivity: false,
 };
 
 const userInterfaceReducer = (state = INITIAL_STATE, action) => {
@@ -14,10 +15,14 @@ const userInterfaceReducer = (state = INITIAL_STATE, action) => {
       };
 
     case UserInterfaceActionTypes.TOGGLE_HEADER_DROPDOWN_SETTINGS:
-      console.log('tykurwo');
       return {
         ...state,
         openHeaderDropdownSettings: !state.openHeaderDropdownSettings,
+      };
+
+    case UserInterfaceActionTypes.TOGGLE_FEELING_ACTIVITY:
+      return {
+        openFeelingActivity: !state.openFeelingActivity,
       };
 
     default:

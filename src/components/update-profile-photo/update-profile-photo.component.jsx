@@ -9,6 +9,8 @@ import {
 
 import { auth, addUserData, storage } from '../../firebase/firebase.utils';
 
+import PopUp from '../pop-up/pop-up.component';
+
 import './update-profile-photo.styles.scss';
 
 import CloseIcon from '@material-ui/icons/Close';
@@ -57,41 +59,39 @@ const UpdateProfilePhoto = (props) => {
   };
 
   return (
-    <div className='update-profile-photo'>
-      <div className='update-profile-photo__container'>
-        <div className='update-profile-photo__header'>
-          <h2>Update profile photo</h2>
-          <button onClick={() => toggleUpdateProfilePhoto()}>
-            <CloseIcon />
-          </button>
-        </div>
-        <div className='update-profile-photo__bottom'>
-          <form onSubmit={handleSubmit}>
-            <div className='option-title'>
-              <PublishIcon style={{ color: 'gray' }} /> <h2>Upload</h2>
-            </div>
-            <input
-              className='update-profile-photo__input-file'
-              type='file'
-              onChange={handleFileChange}
-            />
-            <div className='option-title option-title-url'>
-              <LanguageIcon style={{ color: 'gray' }} /> <h2>Url</h2>
-            </div>
-            <input
-              className='update-profile-photo__input'
-              placeholder={`image URL`}
-              onChange={handleChange}
-            />
-            <div className='update-profile-photo__gray-line' />
-            <button type='submit'>
-              <ImageIcon />
-              <h4>Update</h4>
-            </button>
-          </form>
-        </div>
+    <PopUp>
+      <div className='update-profile-photo__header'>
+        <h2>Update profile photo</h2>
+        <button onClick={() => toggleUpdateProfilePhoto()}>
+          <CloseIcon />
+        </button>
       </div>
-    </div>
+      <div className='update-profile-photo__bottom'>
+        <form onSubmit={handleSubmit}>
+          <div className='option-title'>
+            <PublishIcon style={{ color: 'gray' }} /> <h2>Upload</h2>
+          </div>
+          <input
+            className='update-profile-photo__input-file'
+            type='file'
+            onChange={handleFileChange}
+          />
+          <div className='option-title option-title-url'>
+            <LanguageIcon style={{ color: 'gray' }} /> <h2>Url</h2>
+          </div>
+          <input
+            className='update-profile-photo__input'
+            placeholder={`image URL`}
+            onChange={handleChange}
+          />
+          <div className='update-profile-photo__gray-line' />
+          <button type='submit'>
+            <ImageIcon />
+            <h4>Update</h4>
+          </button>
+        </form>
+      </div>
+    </PopUp>
   );
 };
 
