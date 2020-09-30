@@ -1,0 +1,23 @@
+.notifications-row {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  margin-right: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #eff2f5;
+
+  .notifications-row__container {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+
+    p {
+      margin-bottom: 10px;
+    }
+
+    .notifications-row__options {
+      display: flex;
+      width: 100%;
+    }
+  }
+}

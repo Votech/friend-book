@@ -15,3 +15,9 @@ export const toggleFeelingActivity = () => {
     type: UserInterfaceActionTypes.TOGGLE_FEELING_ACTIVITY,
   };
 };
+
+export const toggleNotifications = () => {
+  return {
+    type: UserInterfaceActionTypes.TOGGLE_NOTIFICATIONS,
+  };
+};

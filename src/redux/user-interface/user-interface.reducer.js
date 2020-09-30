@@ -4,6 +4,7 @@ const INITIAL_STATE = {
   openUpdateProfilePhoto: false,
   openHeaderDropdownSettings: false,
   openFeelingActivity: false,
+  openNotifications: false,
 };
 
 const userInterfaceReducer = (state = INITIAL_STATE, action) => {
@@ -23,6 +24,11 @@ const userInterfaceReducer = (state = INITIAL_STATE, action) => {
     case UserInterfaceActionTypes.TOGGLE_FEELING_ACTIVITY:
       return {
         openFeelingActivity: !state.openFeelingActivity,
+      };
+
+    case UserInterfaceActionTypes.TOGGLE_NOTIFICATIONS:
+      return {
+        openNotifications: !state.openNotifications,
       };
 
     default:

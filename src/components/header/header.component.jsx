@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import { firestore } from '../../firebase/firebase.utils';
 
-import { toggleHeaderDropdownSettings } from '../../redux/user-interface/user-interface.actions';
+import {
+  toggleHeaderDropdownSettings,
+  toggleNotifications,
+} from '../../redux/user-interface/user-interface.actions';
 
 import HeaderDropdownSettings from '../header-dropdown-settings/header-dropdown.settings.component';
 import SearchFriendBook from '../../components/search-friend-book/search-friend-book.component';
+import Notifications from '../../components/notifications/notifications.component';
 
 import HomeIcon from '@material-ui/icons/Home';
 import OndemandVideoIcon from '@material-ui/icons/OndemandVideo';
@@ -16,6 +21,7 @@ import ChatIcon from '@material-ui/icons/Chat';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
+import Badge from '@material-ui/core/Badge';
 import { Avatar, IconButton } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -34,15 +40,56 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Header({
+const Header = ({
   currentUser,
-  openHeaderDropdownSetting,
+  openHeaderDropdownSettings,
   toggleHeaderDropdownSettings,
-}) {
+  openNotifications,
+  toggleNotifications,
+}) => {
   const classes = useStyles();
+
+  const [pendingFriends, setPendingFriends] = useState(null);
+  const [notificationInvisible, setNotificationInvisible] = useState(true);
+  const [notificationCount, setNotificationCount] = useState(0);
+
+  useEffect(() => {
+    const userFriendsRef = firestore.doc(`friends/${currentUser.id}`);
+
+    const unsubscribe = userFriendsRef.onSnapshot((doc) => {
+      setPendingFriends(
+        Object.entries(doc.data()).filter((friend) => friend[1] === null)
+      );
+    });
+
+    return () => unsubscribe();
+  }, [currentUser.id]);
+
+  useEffect(() => {
+    if (pendingFriends) {
+      if (pendingFriends.length > 0) {
+        setNotificationInvisible(false);
+        setNotificationCount(pendingFriends.length);
+      } else {
+        setNotificationInvisible(true);
+        setNotificationCount(0);
+      }
+    }
+  }, [pendingFriends]);
+
+  const handleDropdowns = (action) => {
+    if (action === 'openNotification') {
+      openHeaderDropdownSettings && toggleHeaderDropdownSettings();
+    }
+    if (action === 'openHeaderDropdownSetting') {
+      openNotifications && toggleNotifications();
+    }
+  };
 
   return (
     <div className='header'>
+      {console.log(pendingFriends)}
+      {console.log(pendingFriends && pendingFriends.length)}
       <div className='header__left'>
         <SearchFriendBook />
       </div>
@@ -77,28 +124,48 @@ function Header({
         <IconButton className={classes.iconBackground}>
           <ChatIcon />
         </IconButton>
-        <IconButton className={classes.iconBackground}>
-          <NotificationsIcon />
-        </IconButton>
+
         <IconButton
           className={classes.iconBackground}
-          onClick={() => toggleHeaderDropdownSettings()}
+          onClick={() => {
+            handleDropdowns('openNotification');
+            toggleNotifications();
+          }}
+        >
+          <Badge
+            color='secondary'
+            invisible={notificationInvisible}
+            badgeContent={notificationCount}
+          >
+            <NotificationsIcon />
+          </Badge>
+        </IconButton>
+
+        <IconButton
+          className={classes.iconBackground}
+          onClick={() => {
+            handleDropdowns('openHeaderDropdownSetting');
+            toggleHeaderDropdownSettings();
+          }}
         >
           <ExpandMoreIcon />
         </IconButton>
-        {openHeaderDropdownSetting && <HeaderDropdownSettings />}
+        {openHeaderDropdownSettings && <HeaderDropdownSettings />}
+        {openNotifications && <Notifications pendingFriends={pendingFriends} />}
       </div>
     </div>
   );
-}
+};
 
 const mapStateToProps = (state) => ({
   currentUser: state.user.currentUser,
-  openHeaderDropdownSetting: state.userInterface.openHeaderDropdownSettings,
+  openHeaderDropdownSettings: state.userInterface.openHeaderDropdownSettings,
+  openNotifications: state.userInterface.openNotifications,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   toggleHeaderDropdownSettings: () => dispatch(toggleHeaderDropdownSettings()),
+  toggleNotifications: () => dispatch(toggleNotifications()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

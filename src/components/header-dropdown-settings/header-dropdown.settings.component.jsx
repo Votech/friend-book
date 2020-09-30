@@ -1,7 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { toggleUpdateProfilePhoto } from '../../redux/user-interface/user-interface.actions';
+import {
+  toggleUpdateProfilePhoto,
+  toggleHeaderDropdownSettings,
+} from '../../redux/user-interface/user-interface.actions';
 
 import { auth } from '../../firebase/firebase.utils';
 
@@ -30,7 +33,11 @@ const HeaderDropdownSettingsUser = ({ currentUser, ...otherProps }) => {
   );
 };
 
-const HeaderDropdownSettings = ({ currentUser, toggleUpdateProfilePhoto }) => {
+const HeaderDropdownSettings = ({
+  currentUser,
+  toggleUpdateProfilePhoto,
+  toggleHeaderDropdownSettings,
+}) => {
   return (
     <div className='header-dropdown-settings'>
       <DropdownMenu>
@@ -50,7 +57,10 @@ const HeaderDropdownSettings = ({ currentUser, toggleUpdateProfilePhoto }) => {
           />
           <SidebarRow
             title='Log out'
-            onClick={() => auth.signOut()}
+            onClick={() => {
+              auth.signOut();
+              toggleHeaderDropdownSettings();
+            }}
             Icon={MeetingRoomIcon}
             headerDropdown
           />
@@ -66,6 +76,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   toggleUpdateProfilePhoto: () => dispatch(toggleUpdateProfilePhoto()),
+  toggleHeaderDropdownSettings: () => dispatch(toggleHeaderDropdownSettings()),
 });
 
 export default connect(

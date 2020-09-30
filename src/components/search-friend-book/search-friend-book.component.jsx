@@ -24,19 +24,16 @@ class SearchFriendBook extends React.Component {
     const usersRef = firestore.collection('users');
     usersRef.get().then((querySnapshot) => {
       querySnapshot.forEach((doc) =>
-        this.setState(
-          {
-            users: {
-              ...this.state.users,
-              [doc.id]: {
-                id: doc.id,
-                fullName: `${doc.data().name} ${doc.data().surname}`,
-                data: doc.data(),
-              },
+        this.setState({
+          users: {
+            ...this.state.users,
+            [doc.id]: {
+              id: doc.id,
+              fullName: `${doc.data().name} ${doc.data().surname}`,
+              data: doc.data(),
             },
           },
-          console.log(this.state)
-        )
+        })
       );
     });
   }
