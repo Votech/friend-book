@@ -1,0 +1,27 @@
+.custom-button-2 {
+  white-space: nowrap;
+  padding: 0 12px;
+  margin-left: auto;
+  height: 36px;
+  border: none;
+  border-radius: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:hover {
+    background-color: #dfdddd;
+    cursor: pointer;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  .custom-button-2__h4 {
+    margin: 0;
+    margin-bottom: 0;
+    font-weight: 400;
+    font-size: 14px;
+  }
+}

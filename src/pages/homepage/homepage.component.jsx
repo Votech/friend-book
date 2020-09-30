@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import MediaQuery from 'react-responsive';
 
 import './homepage.styles.scss';
 
@@ -12,15 +13,20 @@ const HomePage = ({ openUpdateProfilePhoto }) => {
   return (
     <div className='homepage'>
       {openUpdateProfilePhoto && <UpdateProfilePhoto />}
-      <div className='homepage__sidebar'>
-        <Sidebar />
-      </div>
+      <MediaQuery query='(min-width: 1156px)'>
+        <div className='homepage__sidebar'>
+          <Sidebar />
+        </div>
+      </MediaQuery>
+
       <div className='homepage__feed'>
         <Feed />
       </div>
-      <div className='homepage_friendsSidebar'>
-        <FriendsSidebar />
-      </div>
+      <MediaQuery query='(min-width: 900px)'>
+        <div className='homepage_friendsSidebar'>
+          <FriendsSidebar />
+        </div>
+      </MediaQuery>
     </div>
   );
 };

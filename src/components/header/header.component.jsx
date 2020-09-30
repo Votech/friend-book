@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import { toggleHeaderDropdownSettings } from '../../redux/user-interface/user-interface.actions';
 
 import HeaderDropdownSettings from '../header-dropdown-settings/header-dropdown.settings.component';
+import SearchFriendBook from '../../components/search-friend-book/search-friend-book.component';
 
-import SearchIcon from '@material-ui/icons/Search';
 import HomeIcon from '@material-ui/icons/Home';
 import OndemandVideoIcon from '@material-ui/icons/OndemandVideo';
 import StorefrontIcon from '@material-ui/icons/Storefront';
@@ -20,8 +20,6 @@ import { Avatar, IconButton } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import './header.styles.scss';
-
-import FacebookLogo from '../../assets/svg/facebook.svg';
 
 const useStyles = makeStyles((theme) => ({
   iconBackground: {
@@ -46,12 +44,9 @@ function Header({
   return (
     <div className='header'>
       <div className='header__left'>
-        <img src={FacebookLogo} alt='Facebook Logo' className='header--logo' />
-        <div className='header__input'>
-          <SearchIcon />
-          <input placeholder='Search Facebook' type='text' />
-        </div>
+        <SearchFriendBook />
       </div>
+
       <div className='header__middle'>
         <div className='header__options'>
           <div className='header__option--active'>

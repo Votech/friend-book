@@ -13,29 +13,6 @@
   .header__left {
     display: flex;
     flex: 1;
-
-    .header--logo {
-      height: 40px;
-      width: 40px;
-    }
-
-    .header__input {
-      display: flex;
-      align-items: center;
-      background: #eff2f5;
-      padding: 10px;
-      margin-left: 10px;
-      border-radius: 999px;
-      height: 40px;
-    }
-
-    .header__input {
-      input {
-        border: none;
-        background-color: transparent;
-        outline-width: 0;
-      }
-    }
   }
 
   .header__middle {
@@ -55,7 +32,7 @@
         padding: 0 50px;
         margin: 0 2px;
 
-        @media screen and (max-width: 1350px) {
+        @media screen and (max-width: 1390px) {
           padding: 0 35px;
         }
         @media screen and (max-width: 1150px) {
@@ -99,6 +76,10 @@
       align-items: center;
       margin: 0 8px 0 0;
       padding: 0 12px;
+
+      @media screen and (max-width: 1255px) {
+        display: none;
+      }
 
       h4 {
         margin: 0 0 0 8px;

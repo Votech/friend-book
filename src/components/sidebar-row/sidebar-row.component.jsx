@@ -14,18 +14,16 @@ const SidebarRow = ({
 }) => {
   return (
     <div
-      className={`sidebar__row ${headerDropdown ? 'header--dropdown' : null}`}
+      className={`sidebar__row ${headerDropdown && 'header--dropdown'}`}
       {...otherProps}
     >
-      {src ? (
-        <Avatar src={src} style={{ width: '36px', height: '36px' }} />
-      ) : null}
-      {Icon ? (
+      {src && <Avatar src={src} style={{ width: '36px', height: '36px' }} />}
+      {Icon && (
         <Icon
-          className={`icon ${headerDropdown ? 'header__dropdown--icon' : null}`}
+          className={`icon ${headerDropdown && 'header__dropdown--icon'}`}
         />
-      ) : null}
-      {CustomComponent ? <CustomComponent /> : null}
+      )}
+      {CustomComponent && <CustomComponent />}
 
       <h4>{title}</h4>
     </div>
