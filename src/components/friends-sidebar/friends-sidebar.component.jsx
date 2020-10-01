@@ -1,128 +1,55 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { firestore } from '../../firebase/firebase.utils';
 
 import './friends-sidebar.styles.scss';
 
-import SidebarRow from '../sidebar-row/sidebar-row.component';
+import FriendsRow from '../friends-row/friends-row.component';
 import Scroll from '../scroll/scroll.component';
 
-const FriendsSidebar = () => {
-  return (
-    <div className='friends-sidebar'>
-      <div className='friends-sidebar__header'>
-        <h3>Friends</h3>
-      </div>
-      <Scroll height='85vh'>
-        <SidebarRow
-          title='
-        Maria Forest
-        '
-          src='https://images.unsplash.com/profile-1599579778602-64f171622675image?dpr=1&auto=format&fit=crop&w=150&h=150&q=60&crop=faces&bg=fff'
-        />
-        <SidebarRow
-          title='
-        Boicu Andrei
-        '
-          src='https://images.unsplash.com/profile-1598458846372-ff8ab470c29bimage?dpr=1&auto=format&fit=crop&w=150&h=150&q=60&crop=faces&bg=fff'
-        />
-        <SidebarRow
-          title='
-        Patrick Robert Doyle
-        '
-          src='https://images.unsplash.com/profile-1573119783466-97b3e6a55ea7image?dpr=1&auto=format&fit=crop&w=150&h=150&q=60&crop=faces&bg=fff'
-        />
-        <SidebarRow
-          title='
-        Maria Forest
-        '
-          src='https://images.unsplash.com/profile-1599579778602-64f171622675image?dpr=1&auto=format&fit=crop&w=150&h=150&q=60&crop=faces&bg=fff'
-        />
-        <SidebarRow
-          title='
-        Boicu Andrei
-        '
-          src='https://images.unsplash.com/profile-1598458846372-ff8ab470c29bimage?dpr=1&auto=format&fit=crop&w=150&h=150&q=60&crop=faces&bg=fff'
-        />
-        <SidebarRow
-          title='
-        Patrick Robert Doyle
-        '
-          src='https://images.unsplash.com/profile-1573119783466-97b3e6a55ea7image?dpr=1&auto=format&fit=crop&w=150&h=150&q=60&crop=faces&bg=fff'
-        />
-        <SidebarRow
-          title='
-        Maria Forest
-        '
-          src='https://images.unsplash.com/profile-1599579778602-64f171622675image?dpr=1&auto=format&fit=crop&w=150&h=150&q=60&crop=faces&bg=fff'
-        />
-        <SidebarRow
-          title='
-        Boicu Andrei
-        '
-          src='https://images.unsplash.com/profile-1598458846372-ff8ab470c29bimage?dpr=1&auto=format&fit=crop&w=150&h=150&q=60&crop=faces&bg=fff'
-        />
-        <SidebarRow
-          title='
-        Patrick Robert Doyle
-        '
-          src='https://images.unsplash.com/profile-1573119783466-97b3e6a55ea7image?dpr=1&auto=format&fit=crop&w=150&h=150&q=60&crop=faces&bg=fff'
-        />
-        <SidebarRow
-          title='
-        Maria Forest
-        '
-          src='https://images.unsplash.com/profile-1599579778602-64f171622675image?dpr=1&auto=format&fit=crop&w=150&h=150&q=60&crop=faces&bg=fff'
-        />
-        <SidebarRow
-          title='
-        Boicu Andrei
-        '
-          src='https://images.unsplash.com/profile-1598458846372-ff8ab470c29bimage?dpr=1&auto=format&fit=crop&w=150&h=150&q=60&crop=faces&bg=fff'
-        />
-        <SidebarRow
-          title='
-        Patrick Robert Doyle
-        '
-          src='https://images.unsplash.com/profile-1573119783466-97b3e6a55ea7image?dpr=1&auto=format&fit=crop&w=150&h=150&q=60&crop=faces&bg=fff'
-        />
-        <SidebarRow
-          title='
-        Maria Forest
-        '
-          src='https://images.unsplash.com/profile-1599579778602-64f171622675image?dpr=1&auto=format&fit=crop&w=150&h=150&q=60&crop=faces&bg=fff'
-        />
-        <SidebarRow
-          title='
-        Boicu Andrei
-        '
-          src='https://images.unsplash.com/profile-1598458846372-ff8ab470c29bimage?dpr=1&auto=format&fit=crop&w=150&h=150&q=60&crop=faces&bg=fff'
-        />
-        <SidebarRow
-          title='
-        Patrick Robert Doyle
-        '
-          src='https://images.unsplash.com/profile-1573119783466-97b3e6a55ea7image?dpr=1&auto=format&fit=crop&w=150&h=150&q=60&crop=faces&bg=fff'
-        />
-        <SidebarRow
-          title='
-        Maria Forest
-        '
-          src='https://images.unsplash.com/profile-1599579778602-64f171622675image?dpr=1&auto=format&fit=crop&w=150&h=150&q=60&crop=faces&bg=fff'
-        />
-        <SidebarRow
-          title='
-        Boicu Andrei
-        '
-          src='https://images.unsplash.com/profile-1598458846372-ff8ab470c29bimage?dpr=1&auto=format&fit=crop&w=150&h=150&q=60&crop=faces&bg=fff'
-        />
-        <SidebarRow
-          title='
-        Patrick Robert Doyle
-        '
-          src='https://images.unsplash.com/profile-1573119783466-97b3e6a55ea7image?dpr=1&auto=format&fit=crop&w=150&h=150&q=60&crop=faces&bg=fff'
-        />
-      </Scroll>
-    </div>
-  );
-};
+class FriendsSidebar extends React.Component {
+  state = {
+    friends: null,
+  };
 
-export default FriendsSidebar;
+  unsubscribeFromOnSnapshot = null;
+
+  componentDidMount() {
+    const { currentUserId } = this.props;
+    const friendsRef = firestore.doc(`friends/${currentUserId}`);
+
+    this.unsubscribeFromOnSnapshot = friendsRef.onSnapshot((doc) =>
+      this.setState({
+        friends: Object.entries(doc.data()).filter((user) => user[1] === true),
+      })
+    );
+  }
+
+  componentWillUnmount() {
+    this.unsubscribeFromOnSnapshot();
+  }
+
+  render() {
+    const { friends } = this.state;
+    return (
+      <div className='friends-sidebar'>
+        <div className='friends-sidebar__header'>
+          <h3>Friends</h3>
+        </div>
+        <Scroll height='85vh'>
+          {friends
+            ? friends.map((friend) => (
+                <FriendsRow key={friend[0]} userId={friend[0]} />
+              ))
+            : null}
+        </Scroll>
+      </div>
+    );
+  }
+}
+
+const mapStateToProps = (state) => ({
+  currentUserId: state.user.currentUser.id,
+});
+
+export default connect(mapStateToProps)(FriendsSidebar);

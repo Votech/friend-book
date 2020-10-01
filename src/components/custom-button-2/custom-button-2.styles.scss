@@ -50,3 +50,12 @@
     color: white;
   }
 }
+
+.custom-button-2--disable {
+  background-color: #f5f2f2;
+
+  &:hover {
+    background-color: #f5f2f2;
+    cursor: default;
+  }
+}

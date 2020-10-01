@@ -48,27 +48,25 @@ class UsersRow extends React.Component {
         {userFriendsStatus === null ? (
           <CustomButton2
             text='Pending'
+            disable
             style={{ marginLeft: 'auto' }}
-            onClick={() => addFriend(currentUserId, id)}
           />
         ) : userFriendsStatus === undefined ? (
           <CustomButton2
             text='Add Friend'
+            blue
             style={{ marginLeft: 'auto' }}
             onClick={() => addFriend(currentUserId, id)}
           />
         ) : userFriendsStatus === false ? (
           <CustomButton2
             text='Add Friend'
+            blue
             style={{ marginLeft: 'auto' }}
             onClick={() => addFriend(currentUserId, id)}
           />
         ) : userFriendsStatus === true ? (
-          <CustomButton2
-            text='Message'
-            style={{ marginLeft: 'auto' }}
-            onClick={() => addFriend(currentUserId, id)}
-          />
+          <CustomButton2 text='Message' blue style={{ marginLeft: 'auto' }} />
         ) : null}
       </div>
     );

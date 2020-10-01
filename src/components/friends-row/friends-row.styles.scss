@@ -1,0 +1,18 @@
+.friends-row {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  cursor: pointer;
+  position: relative;
+  bottom: 10px;
+
+  &:hover {
+    background-color: #e3e7eb;
+    border-radius: 10px;
+  }
+
+  h4 {
+    margin: 0 0 0 10px;
+    font-weight: 500;
+  }
+}
