@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import { firestore } from '../../firebase/firebase.utils';
 
@@ -83,9 +84,14 @@ class SearchFriendBook extends React.Component {
 
   SearchOpen = () => {
     const { users, value } = this.state;
-    const filteredUsers = Object.values(users).filter((user) =>
-      user.fullName.toLowerCase().includes(value.toLowerCase())
+    const { currentUserId } = this.props;
+    const filteredUsers = Object.values(users).filter(
+      (user) =>
+        user.id !== currentUserId &&
+        user.fullName.toLowerCase().includes(value.toLowerCase())
     );
+
+    console.log('users: ', users);
 
     return (
       <div className='search-friend-book search-friend-book__open'>
@@ -128,4 +134,8 @@ class SearchFriendBook extends React.Component {
   }
 }
 
-export default SearchFriendBook;
+const mapStateToProps = (state) => ({
+  currentUserId: state.user.currentUser.id,
+});
+
+export default connect(mapStateToProps)(SearchFriendBook);

@@ -118,6 +118,45 @@ export const addFriend = async (currentUserId, userId) => {
   }
 };
 
+export const resolveFriendRequest = async (currentUserId, userId, accept) => {
+  const userRef = await firestore.doc(`friends/${userId}`);
+  const currentUserRef = await firestore.doc(`friends/${currentUserId}`);
+
+  if (accept) {
+    try {
+      userRef.update({
+        [currentUserId]: true,
+      });
+    } catch (error) {
+      console.log('error: ', error);
+    }
+
+    try {
+      currentUserRef.update({
+        [userId]: true,
+      });
+    } catch (error) {
+      console.log('error: ', error);
+    }
+  } else {
+    try {
+      userRef.update({
+        [currentUserId]: false,
+      });
+    } catch (error) {
+      console.log('error: ', error);
+    }
+
+    try {
+      currentUserRef.update({
+        [userId]: false,
+      });
+    } catch (error) {
+      console.log('error: ', error);
+    }
+  }
+};
+
 firebase.initializeApp(firebaseConfig);
 
 export const auth = firebase.auth();

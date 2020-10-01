@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { firestore } from '../../firebase/firebase.utils';
+import { firestore, resolveFriendRequest } from '../../firebase/firebase.utils';
 
 import CustomButton2 from '../custom-button-2/custom-button-2.component';
 
@@ -28,6 +28,7 @@ class NotificationsRow extends React.Component {
 
   render() {
     const { username, profilePhotoUrl } = this.state;
+    const { userId, currentUserId } = this.props;
     return (
       <div className='notifications-row'>
         <Avatar
@@ -40,8 +41,17 @@ class NotificationsRow extends React.Component {
             friend request
           </p>
           <div className='notifications-row__options'>
-            <CustomButton2 text='Accept' />
-            <CustomButton2 text='Decline' style={{ marginLeft: '20px' }} />
+            <CustomButton2
+              text='Accept'
+              blue
+              onClick={() => resolveFriendRequest(currentUserId, userId, true)}
+            />
+            <CustomButton2
+              text='Decline'
+              red
+              style={{ marginLeft: '20px' }}
+              onClick={() => resolveFriendRequest(currentUserId, userId, false)}
+            />
           </div>
         </div>
       </div>

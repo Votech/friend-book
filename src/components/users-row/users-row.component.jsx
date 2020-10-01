@@ -31,7 +31,7 @@ class UsersRow extends React.Component {
   }
 
   componentWillUnmount() {
-    this.unsubscribeFromOnSnapshot = null;
+    this.unsubscribeFromOnSnapshot();
   }
 
   render() {

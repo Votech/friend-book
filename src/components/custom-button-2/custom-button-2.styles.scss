@@ -24,3 +24,29 @@
     font-size: 14px;
   }
 }
+
+.custom-button-2--blue {
+  background-color: #1877f2;
+
+  &:hover {
+    background-color: #146cdf;
+  }
+
+  .custom-button-2__h4 {
+    font-weight: 600;
+    color: white;
+  }
+}
+
+.custom-button-2--red {
+  background-color: #f50057;
+
+  &:hover {
+    background-color: #df004e;
+  }
+
+  .custom-button-2__h4 {
+    font-weight: 600;
+    color: white;
+  }
+}

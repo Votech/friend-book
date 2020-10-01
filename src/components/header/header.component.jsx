@@ -88,8 +88,6 @@ const Header = ({
 
   return (
     <div className='header'>
-      {console.log(pendingFriends)}
-      {console.log(pendingFriends && pendingFriends.length)}
       <div className='header__left'>
         <SearchFriendBook />
       </div>
