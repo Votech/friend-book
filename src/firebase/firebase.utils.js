@@ -33,7 +33,7 @@ export const createUserProfileDocument = async (userAuth, additionlData) => {
       });
 
       await userFriendsRef.set({
-        r3J7O2ZdgtOqFF7JvOYfHBC5lnZ2: true,
+        Es0M4Fb4escCmn9dTahuFUzIlXC3: true,
       });
     } catch (error) {
       console.log('error creating user', error.message);
@@ -107,14 +107,12 @@ export const addComment = async (postId, data) => {
 export const addFriend = async (currentUserId, userId) => {
   const userFriendsRef = await firestore.doc(`friends/${userId}`);
 
-  const snapShot = await userFriendsRef.get();
-
   try {
     userFriendsRef.update({
       [currentUserId]: null,
     });
   } catch (error) {
-    console.log('error: ', error);
+    console.log('error1 : ', error);
   }
 };
 

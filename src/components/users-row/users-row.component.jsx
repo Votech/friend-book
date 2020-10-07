@@ -44,7 +44,7 @@ class UsersRow extends React.Component {
           src={profilePhotoUrl}
           style={{ width: '36px', height: '36px' }}
         />
-        <h4>{fullName}</h4>
+        <div className='users__rowh--h4'>{fullName}</div>
         {userFriendsStatus === null ? (
           <CustomButton2
             text='Pending'

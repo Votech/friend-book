@@ -19,10 +19,14 @@ class SearchFriendBook extends React.Component {
     value: '',
     isHidden: 'true',
     users: {},
+    userFriendsStatus: {},
   };
+
+  unsubscribeFromOnSnapshot = null;
 
   componentDidMount() {
     const usersRef = firestore.collection('users');
+
     usersRef.get().then((querySnapshot) => {
       querySnapshot.forEach((doc) =>
         this.setState({
@@ -91,8 +95,6 @@ class SearchFriendBook extends React.Component {
         user.fullName.toLowerCase().includes(value.toLowerCase())
     );
 
-    console.log('users: ', users);
-
     return (
       <div className='search-friend-book search-friend-book__open'>
         <div className='search-friend-book__header'>
@@ -120,7 +122,10 @@ class SearchFriendBook extends React.Component {
         <div className='search-friend-book__main'>
           <h4>People</h4>
           <Scroll maxHeight='600px'>
-            <UsersList users={filteredUsers} />
+            <UsersList
+              users={filteredUsers}
+              userFriendStatus={this.state.userFriendsStatus}
+            />
           </Scroll>
         </div>
       </div>

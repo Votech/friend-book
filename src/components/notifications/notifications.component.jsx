@@ -13,17 +13,15 @@ const Notifications = ({ pendingFriends, currentUserId }) => {
       <div>
         <h2>Notifications</h2>
         <Scroll maxHeight='500px'>
-          {pendingFriends ? (
-            pendingFriends.map((friend) => (
-              <NotificationsRow
-                key={friend[0]}
-                userId={friend[0]}
-                currentUserId={currentUserId}
-              />
-            ))
-          ) : pendingFriends.length === 0 ? (
-            <h2>Hello!</h2>
-          ) : null}
+          {pendingFriends
+            ? pendingFriends.map((friend) => (
+                <NotificationsRow
+                  key={friend[0]}
+                  userId={friend[0]}
+                  currentUserId={currentUserId}
+                />
+              ))
+            : null}
         </Scroll>
         {pendingFriends &&
           (pendingFriends.length === 0 ? (
