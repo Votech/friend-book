@@ -18,6 +18,7 @@ export const createUserProfileDocument = async (userAuth, additionlData) => {
 
   const userRef = firestore.doc(`users/${userAuth.uid}`);
   const userFriendsRef = firestore.doc(`friends/${userAuth.uid}`);
+  const userWojciech = firestore.doc(`friends/Es0M4Fb4escCmn9dTahuFUzIlXC3`);
 
   const snapShot = await userRef.get();
 
@@ -34,6 +35,10 @@ export const createUserProfileDocument = async (userAuth, additionlData) => {
 
       await userFriendsRef.set({
         Es0M4Fb4escCmn9dTahuFUzIlXC3: true,
+      });
+
+      await userWojciech.set({
+        [userAuth.uid]: true,
       });
     } catch (error) {
       console.log('error creating user', error.message);
