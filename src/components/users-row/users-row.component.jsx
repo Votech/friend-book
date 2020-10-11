@@ -22,12 +22,9 @@ class UsersRow extends React.Component {
     const userFriendsRef = await firestore.doc(`friends/${id}`);
 
     this.unsubscribeFromOnSnapshot = userFriendsRef.onSnapshot((doc) => {
-      this.setState({ userFriendsStatus: doc.data()[currentUserId] }, () =>
-        console.log(doc.data()[currentUserId])
+      this.setState({ userFriendsStatus: doc.data()[currentUserId] }
       );
-    });
-
-    console.log((await userFriendsRef.get()).data());
+    }); 
   }
 
   componentWillUnmount() {

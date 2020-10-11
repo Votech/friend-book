@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
 import { firestore } from '../../firebase/firebase.utils';
 
@@ -7,6 +6,7 @@ import MediaQuery from 'react-responsive';
 
 import UsersList from '../users-list/users-list.component';
 import Scroll from '../scroll/scroll.component';
+import OutsideListener from '../outsideListener/outsideListener.component';
 
 import './search-friend-book.styles.scss';
 
@@ -96,6 +96,7 @@ class SearchFriendBook extends React.Component {
     );
 
     return (
+      <OutsideListener action={this.toggleIsHidden}>
       <div className='search-friend-book search-friend-book__open'>
         <div className='search-friend-book__header'>
           <div
@@ -129,18 +130,17 @@ class SearchFriendBook extends React.Component {
           </Scroll>
         </div>
       </div>
-    );
+      </OutsideListener>);
   };
 
   render() {
     return (
       <div>{this.state.isHidden ? this.SearchHidden() : this.SearchOpen()}</div>
+      
     );
   }
 }
 
-const mapStateToProps = (state) => ({
-  currentUserId: state.user.currentUser.id,
-});
 
-export default connect(mapStateToProps)(SearchFriendBook);
+
+export default SearchFriendBook;

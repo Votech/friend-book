@@ -1,14 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { toggleNotifications } from '../../redux/user-interface/user-interface.actions';
 
 import './notifications.styles.scss';
 
 import DropdownMenu from '../dropdown-menu/dropdown-menu.component';
 import NotificationsRow from '../notifications-row/notifications-row.component';
 import Scroll from '../scroll/scroll.component';
+import OutsideListener from '../outsideListener/outsideListener.component';
 
-const Notifications = ({ pendingFriends, currentUserId }) => {
+const Notifications = ({ pendingFriends, currentUserId, toggleNotifications }) => {
   return (
+    <OutsideListener action={toggleNotifications}>
     <DropdownMenu>
       <div>
         <h2>Notifications</h2>
@@ -29,6 +32,7 @@ const Notifications = ({ pendingFriends, currentUserId }) => {
           ) : null)}
       </div>
     </DropdownMenu>
+    </OutsideListener>
   );
 };
 
@@ -36,4 +40,8 @@ const mapStateToProps = (state) => ({
   currentUserId: state.user.currentUser.id,
 });
 
-export default connect(mapStateToProps)(Notifications);
+const mapDispatchToProps = (dispatch) => ({
+  toggleNotifications: () => dispatch(toggleNotifications()),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Notifications);

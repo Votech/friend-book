@@ -85,7 +85,9 @@ const Post = ({
         <div className='post-header__user-info'>
           <div className='post-header__status'>
             <h4>{username}</h4>
-            {isFeeling && (
+            {isFeeling && 
+            isFeeling.feeling !== '' &&
+            (
               <h4 className='post-header__is-feeling'>{` is ${isFeeling.emoji} feeling ${isFeeling.feeling}`}</h4>
             )}
           </div>

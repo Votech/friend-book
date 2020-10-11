@@ -10,6 +10,7 @@ import { auth } from '../../firebase/firebase.utils';
 
 import DropdownMenu from '../dropdown-menu/dropdown-menu.component';
 import SidebarRow from '../sidebar-row/sidebar-row.component';
+import OutsideListener from '../outsideListener/outsideListener.component';
 
 import { Avatar } from '@material-ui/core';
 
@@ -39,6 +40,7 @@ const HeaderDropdownSettings = ({
   toggleHeaderDropdownSettings,
 }) => {
   return (
+    <OutsideListener action={toggleHeaderDropdownSettings}>
     <div className='header-dropdown-settings'>
       <DropdownMenu>
         <div>
@@ -67,6 +69,7 @@ const HeaderDropdownSettings = ({
         </div>
       </DropdownMenu>
     </div>
+    </OutsideListener>
   );
 };
 
