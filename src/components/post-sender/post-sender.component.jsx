@@ -127,14 +127,14 @@ class PostSender extends React.Component {
             onClick={() => this.togglePhotoUploaderOpen()}
           >
             <PhotoLibraryIcon style={{ color: 'green' }} />
-            <h4>Photo/Video</h4>
+            <h4>Photo</h4>
           </div>
           <div
             className='post-sender__option'
             onClick={() => toggleFeelingActivity()}
           >
             <InsertEmoticonIcon style={{ color: 'orange' }} />
-            <h4>Feeling/Activity</h4>
+            <h4>Feeling</h4>
           </div>
         </div>
         {isPhotoUploaderOpen && (
