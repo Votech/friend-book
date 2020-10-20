@@ -10,6 +10,7 @@ import {
 import HeaderDropdownSettings from '../header-dropdown-settings/header-dropdown.settings.component';
 import SearchFriendBook from '../../components/search-friend-book/search-friend-book.component';
 import Notifications from '../../components/notifications/notifications.component';
+import Chat from '../../components/chat/chat.component';
 
 import HomeIcon from '@material-ui/icons/Home';
 import OndemandVideoIcon from '@material-ui/icons/OndemandVideo';
@@ -87,6 +88,7 @@ const Header = ({
   };
 
   return (
+    <>
     <div className='header'>
       <div className='header__left'>
         <SearchFriendBook />
@@ -150,8 +152,11 @@ const Header = ({
         </IconButton>
         {openHeaderDropdownSettings && <HeaderDropdownSettings />}
         {openNotifications && <Notifications pendingFriends={pendingFriends} />}
+        
       </div>
     </div>
+    <Chat />
+    </>
   );
 };
 
