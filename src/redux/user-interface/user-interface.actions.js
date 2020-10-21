@@ -21,3 +21,9 @@ export const toggleNotifications = () => {
     type: UserInterfaceActionTypes.TOGGLE_NOTIFICATIONS,
   };
 };
+
+export const toggleChat = () => {
+  return {
+    type: UserInterfaceActionTypes.TOGGLE_CHAT,
+  }
+}

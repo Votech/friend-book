@@ -47,6 +47,7 @@ const Header = ({
   toggleHeaderDropdownSettings,
   openNotifications,
   toggleNotifications,
+  openChat,
 }) => {
   const classes = useStyles();
 
@@ -155,7 +156,8 @@ const Header = ({
         
       </div>
     </div>
-    <Chat />
+    {openChat && <Chat /> }
+    
     </>
   );
 };
@@ -164,6 +166,7 @@ const mapStateToProps = (state) => ({
   currentUser: state.user.currentUser,
   openHeaderDropdownSettings: state.userInterface.openHeaderDropdownSettings,
   openNotifications: state.userInterface.openNotifications,
+  openChat: state.userInterface.openChat,
 });
 
 const mapDispatchToProps = (dispatch) => ({

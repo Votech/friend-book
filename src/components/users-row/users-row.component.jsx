@@ -1,6 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import {toggleChat} from '../../redux/user-interface/user-interface.actions';
+import {setReceiverUserId} from '../../redux/chat/chat.actions';
+
 import { addFriend, firestore } from '../../firebase/firebase.utils';
 
 import './users-row.styles.scss';
@@ -32,7 +35,7 @@ class UsersRow extends React.Component {
   }
 
   render() {
-    const { fullName, profilePhotoUrl, currentUserId, id } = this.props;
+    const { fullName, profilePhotoUrl, currentUserId, id, toggleChat, isChatOpen, setReceiverUserId } = this.props;
     const { userFriendsStatus } = this.state;
 
     return (
@@ -63,7 +66,13 @@ class UsersRow extends React.Component {
             onClick={() => addFriend(currentUserId, id)}
           />
         ) : userFriendsStatus === true ? (
-          <CustomButton2 text='Message' blue style={{ marginLeft: 'auto' }} />
+          <CustomButton2 text='Message' blue style={{ marginLeft: 'auto' }} onClick={() => {
+            setReceiverUserId(id);
+            if (isChatOpen === false) {
+              toggleChat()
+            }
+            
+          }} />
         ) : null}
       </div>
     );
@@ -72,6 +81,12 @@ class UsersRow extends React.Component {
 
 const mapStateToProps = (state) => ({
   currentUserId: state.user.currentUser.id,
+  isChatOpen: state.userInterface.openChat,
 });
 
-export default connect(mapStateToProps)(UsersRow);
+const mapDispatchToProps = (dispatch) => ({
+  toggleChat: () => dispatch(toggleChat()),
+  setReceiverUserId: (id) => dispatch(setReceiverUserId(id)),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(UsersRow);

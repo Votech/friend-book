@@ -5,6 +5,7 @@ const INITIAL_STATE = {
   openHeaderDropdownSettings: false,
   openFeelingActivity: false,
   openNotifications: false,
+  openChat: false,
 };
 
 const userInterfaceReducer = (state = INITIAL_STATE, action) => {
@@ -30,6 +31,12 @@ const userInterfaceReducer = (state = INITIAL_STATE, action) => {
       return {
         openNotifications: !state.openNotifications,
       };
+
+    case UserInterfaceActionTypes.TOGGLE_CHAT:
+      return {
+        ...state,
+        openChat: !state.openChat,
+      }
 
     default:
       return state;
