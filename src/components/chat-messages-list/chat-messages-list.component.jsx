@@ -1,13 +1,19 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import './chat-messages-list.styles.scss';
 
 import ChatMessage from '../chat-message/chat-message.component';
 
 const ChatMessagesList = ({messages, currentUserId}) => {
+    const messagesEndRef = useRef(null);
+    const scrollToBottom = () => {
+      messagesEndRef.current.scrollIntoView();
+    };
+    useEffect(scrollToBottom, [messages]);
 
     return(
         <div className='chat-messages-list'>
+            
             {messages.map(function(message, index){
                 if(message.authorId === currentUserId) {
                     return (
@@ -20,7 +26,7 @@ const ChatMessagesList = ({messages, currentUserId}) => {
                 }
             
            } )}
-            
+            <div ref={messagesEndRef} />
         </div>
     )
 }

@@ -142,7 +142,9 @@ class Chat extends React.Component {
                     <CloseIcon style={{cursor: 'pointer'}} onClick={() => toggleChat()} />
                 </div>
                     <Scroll height="350px">
+                        
                         <ChatMessagesList messages={this.state.messages} currentUserId={currentUserId} />
+                        
                     </Scroll>
                 <div className='chat-footer'>
                 <EmojiEmotionsIcon style={{color: "#2e81f4"}}/>
