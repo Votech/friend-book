@@ -28,8 +28,8 @@ const FriendsRow = ({ userId, isChatOpen, toggleChat, setReceiverUserId }) => {
     <div className='friends-row' onClick={() => {
         if (!isChatOpen) {
         toggleChat()
-          setReceiverUserId(userId)
       }
+      setReceiverUserId(userId)
     }}>
       <Avatar src={userData && userData.profilePhotoUrl} />
       <h4>{userData && `${userData.name} ${userData.surname}`}</h4>
